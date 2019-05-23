@@ -1,1 +1,1 @@
-export const resource: string = "";
+export const Resource = () => (constructor: new () => any) => constructor;

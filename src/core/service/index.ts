@@ -1,1 +1,1 @@
-export const service: string = "";
+export const Service = () => (constructor: new () => any) => constructor;
