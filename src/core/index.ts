@@ -5,3 +5,4 @@ export * from "./controller";
 export * from "./service";
 export * from "./resource";
 export * from "./model";
+export * from "./utils";

@@ -1,1 +1,1 @@
-export const Service = () => (constructor: new () => any) => constructor;
+export abstract class Service {}

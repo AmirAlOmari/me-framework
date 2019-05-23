@@ -1,22 +1,21 @@
 import { Schema, Document, Model as MModel, model } from "mongoose";
 
-export const Model = (name: string, schemaDefinition: any) => (constructor: new () => any) => constructor;
-export class BaseModel<T extends Document> {
-	public definition = this.schemaDefinition;
-	public schema = new Schema(this.definition);
-	public model = model<T>(name, this.schema);
+export abstract class Model<T> {
+	public _definition = this.schemaDefinition;
+	public _schema = new Schema(this._definition);
+	public __model = model<Document & T>(name, this._schema);
 
-	public create = this.model.create;
-	public find = this.model.find;
-	public findOne = this.model.findOne;
-	public findById = this.model.findById;
-	public findbyIdAndUpdate = this.model.findByIdAndUpdate;
-	public findByIdAndRemove = this.model.findByIdAndRemove;
-	public findByIdAndDelete = this.model.findByIdAndDelete;
-	public countDocuments = this.model.countDocuments;
-	public populate = this.model.populate;
+	public create = this.__model.create;
+	public find = this.__model.find;
+	public findOne = this.__model.findOne;
+	public findById = this.__model.findById;
+	public findbyIdAndUpdate = this.__model.findByIdAndUpdate;
+	public findByIdAndRemove = this.__model.findByIdAndRemove;
+	public findByIdAndDelete = this.__model.findByIdAndDelete;
+	public countDocuments = this.__model.countDocuments;
+	public populate = this.__model.populate;
 
-	public aggregate = this.model.aggregate;
+	public aggregate = this.__model.aggregate;
 
 	constructor(public schemaDefinition: any) {}
 }

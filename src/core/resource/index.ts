@@ -1,1 +1,1 @@
-export const Resource = () => (constructor: new () => any) => constructor;
+export abstract class Resource {}

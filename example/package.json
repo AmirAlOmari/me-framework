@@ -1,0 +1,22 @@
+{
+	"name": "me",
+	"version": "0.0.1",
+	"description": "",
+	"types": "types/main",
+	"main": "lib/main.js",
+	"scripts": {
+		"start": "node ./lib/main.js",
+		"start:dev": "node --inspect=9222 -r ts-node/register ./src/main.ts",
+		"build": "tsc -p ."
+	},
+	"keywords": [],
+	"author": "Amir Al-Omari",
+	"license": "UNLICENSED",
+	"dependencies": {
+		"typescript": "^3.4.5"
+	},
+	"devDependencies": {
+		"@types/node": "^12.0.0",
+		"ts-node": "^8.1.0"
+	}
+}
