@@ -1,9 +1,12 @@
-import { Router, Appends } from "../../../src";
+import { Router } from "../../../src";
 
-export class EntityRouter extends Router {
-	private static appends: Appends = [];
+import { EntitiesController } from "./Entities.controller";
 
-	constructor() {
-		super(EntityRouter.appends);
+export class EntitiesRouter extends Router {
+	constructor(public entitiesController = new EntitiesController()) {
+		super();
+
+		this.use("/hi", this.entitiesController.hi());
+		this.use("/create", this.entitiesController.create());
 	}
 }

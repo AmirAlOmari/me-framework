@@ -1,5 +1,11 @@
 export abstract class Controller {
-	constructor(...methods: Array<(...args: Array<any>) => void>) {
-		methods.forEach(method => (method = method.bind(this)));
+	constructor() {}
+
+	protected bind(thisArg: any) {
+		Object.getOwnPropertyNames(thisArg).forEach(prop => {
+			if (typeof thisArg[prop] === "function") {
+				thisArg[prop] = thisArg[prop].bind(thisArg);
+			}
+		});
 	}
 }

@@ -3,7 +3,10 @@ export type IAnyFunction = (...args: Array<any>) => any;
 const defaultErrField = "__err_field__";
 
 export class PromiseChain<T> {
-	constructor(public customEnum: T, public errField: string = defaultErrField) {}
+	constructor(
+		public customEnum: T,
+		public errField: string = defaultErrField
+	) {}
 
 	public catch<Y extends keyof T>(errIdentify: Y) {
 		return (error: any) => {
@@ -33,7 +36,9 @@ export class PromiseChain<T> {
 				) {
 					const func = <IAnyFunction>(<unknown>this.customEnum[key]);
 					Promise.resolve(func()).then((...results: Array<any>) =>
-						typeof onfinally === "function" ? onfinally : () => void null
+						typeof onfinally === "function"
+							? onfinally
+							: () => void null
 					);
 				}
 			}

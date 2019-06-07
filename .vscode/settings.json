@@ -1,14 +1,13 @@
 {
-    "window.zoomLevel": 0,
-    "workbench.colorTheme": "Electron",
-    "debug.node.autoAttach": "on",
-    "editor.formatOnSave": true,
-    "prettier.useTabs": false,
-    "prettier.tabWidth": 2,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    },
-    "editor.renderWhitespace": "all",
-    "npm.enableScriptExplorer": true
-  }
-  
+	"window.zoomLevel": 0,
+	"workbench.colorTheme": "Electron",
+	"debug.node.autoAttach": "on",
+	"editor.formatOnSave": true,
+	"prettier.useTabs": false,
+	"prettier.tabWidth": 2,
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"editor.renderWhitespace": "all",
+	"npm.enableScriptExplorer": true
+}

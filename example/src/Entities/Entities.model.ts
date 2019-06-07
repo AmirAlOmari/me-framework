@@ -6,4 +6,14 @@ export interface IEntity {
 	i: 0;
 }
 
-export class EntitiesModel extends Model<IEntity> {}
+const entityDefinition = {
+	key: { type: String },
+	is: { type: Boolean },
+	i: { type: Number },
+};
+
+export class EntitiesModel extends Model<IEntity> {
+	constructor() {
+		super("Entitiy", entityDefinition);
+	}
+}

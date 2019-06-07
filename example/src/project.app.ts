@@ -1,11 +1,11 @@
-import { App, Appends, USE } from "../../src";
+import { App } from "../../src";
 
-import { EntityRouter } from "./Entities/Entities.router";
+import { EntitiesRouter } from "./Entities/Entities.router";
 
 export class ProjectApp extends App {
-	public static appends: Appends = [USE("*", (req, res, next) => next()), USE("/test", EntityRouter)];
-
 	constructor() {
-		super(ProjectApp.appends);
+		super();
+
+		this.use("/api/entities", EntitiesRouter);
 	}
 }
