@@ -1,13 +1,25 @@
+import { IMongoConfig, IServerConfig, bootstrap } from "../../";
+
 import { ProjectApp } from "./project.app";
 import config from "./config";
 
-const { MONGO_HOSTNAME, MONGO_PORT, SERVER_HOSTNAME, SERVER_PORT } = config;
+const {
+	MONGO_HOSTNAME,
+	MONGO_PORT,
+	MONGO_DBNAME,
+	SERVER_HOSTNAME,
+	SERVER_PORT,
+} = config;
 
-const app = new ProjectApp();
+const MONGO_CONFIG: IMongoConfig = {
+	MONGO_HOSTNAME,
+	MONGO_PORT,
+	MONGO_DBNAME,
+};
 
-app.bootstrap(
-	{ MONGO_DBNAME: "my-awesome-project" },
-	{ SERVER_PORT: "3000" }
-).then(server => {
-	console.log(`Server is listening on ${SERVER_HOSTNAME}:${SERVER_PORT}`);
-});
+const SERVER_CONFIG: IServerConfig = {
+	SERVER_HOSTNAME,
+	SERVER_PORT,
+};
+
+bootstrap(ProjectApp, MONGO_CONFIG, SERVER_CONFIG);

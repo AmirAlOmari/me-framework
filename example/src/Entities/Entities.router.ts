@@ -1,12 +1,12 @@
-import { Router } from "../../../src";
+import { Router, MetaClassDecorator } from "../../..";
 
 import { EntitiesController } from "./Entities.controller";
 
-export class EntitiesRouter extends Router {
-	constructor(public entitiesController = new EntitiesController()) {
-		super();
-
-		this.use("/hi", this.entitiesController.hi());
-		this.use("/create", this.entitiesController.create());
+@Router()
+export class EntitiesRouter {
+	constructor(public entitiesController: EntitiesController) {
+		// super();
+		// this.use("/hi", this.entitiesController.hi());
+		// this.use("/create", this.entitiesController.create());
 	}
 }

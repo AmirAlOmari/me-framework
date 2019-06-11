@@ -1,4 +1,4 @@
-import { Model } from "../../../src";
+import { Model } from "../../..";
 
 export interface IEntity {
 	key: "value";
@@ -12,8 +12,9 @@ const entityDefinition = {
 	i: { type: Number },
 };
 
-export class EntitiesModel extends Model<IEntity> {
+@Model()
+export class EntitiesModel {
 	constructor() {
-		super("Entitiy", entityDefinition);
+		// super("Entitiy", entityDefinition);
 	}
 }

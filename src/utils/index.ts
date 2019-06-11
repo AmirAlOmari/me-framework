@@ -1,4 +1,4 @@
-export * from "./use";
+// export * from "./use";
 // export * from "./get";
 // export * from "./post";
 // export * from "./put";
@@ -7,3 +7,4 @@ export * from "./use";
 // export * from "./options";
 export * from "./load-env";
 export * from "./promise-chain";
+export * from "./bootstrap";

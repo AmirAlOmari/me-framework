@@ -1,11 +1,11 @@
-import { App } from "../../src";
+import { App, MetaClassDecorator } from "../..";
 
 import { EntitiesRouter } from "./Entities/Entities.router";
 
-export class ProjectApp extends App {
-	constructor() {
-		super();
-
-		this.use("/api/entities", EntitiesRouter);
+@App()
+export class ProjectApp {
+	constructor(public entitiesRouter: EntitiesRouter) {
+		// super();
+		// this.use("/api/entities", EntitiesRouter);
 	}
 }
