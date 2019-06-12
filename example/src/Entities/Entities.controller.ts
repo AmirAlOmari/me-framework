@@ -25,19 +25,19 @@ export class EntitiesController {
 	// 	};
 	// }
 
-	// public hi() {
-	// 	return (req: IRequest, res: IResponse) =>
-	// 		this.entitiesService
-	// 			.hi()
-	// 			.then(answer => {
-	// 				console.log(answer);
+	public hi() {
+		return (req: IRequest, res: IResponse) =>
+			this.entitiesService
+				.hi()
+				.then(answer => {
+					console.log(answer);
 
-	// 				return res.status(200).send(answer);
-	// 			})
-	// 			.catch(error => {
-	// 				console.error(error);
+					return res.status(200).send(answer);
+				})
+				.catch(error => {
+					console.error(error);
 
-	// 				return res.status(500).send(error);
-	// 			});
-	// }
+					return res.status(500).send(error);
+				});
+	}
 }

@@ -3,6 +3,7 @@ import { Router, IRouterHandler, IRouterMatcher } from "express";
 import { IRequestHandler } from "./request-handler.interface";
 import { IErrorRequestHandler } from "./error-request-handler.interface";
 import { TPathParams } from "./path-params.type";
+import { Injector, Type } from "../../utils/injector";
 
 export interface RoutableLike {
 	prototype: {
@@ -29,11 +30,86 @@ export interface IRoutable {
 }
 
 export abstract class Routable implements IRoutable {
-	private _use(
-		func: any,
-		path: TPathParams,
-		...handlers: Array<TAnyHandler>
-	) {}
+	public static isRoutable(target: any): boolean {
+		return Boolean(target && target._router);
+	}
+
+	public static isMiddleware(target: any): boolean {
+		return Boolean(target && target.main);
+	}
+
+	public static isLooksLikeRoutable(target: any): boolean {
+		return Boolean(target && typeof target.get === "function");
+	}
+
+	public static isNativeMiddleware(target: any): boolean {
+		return Boolean(typeof target === "function");
+	}
+
+	constructor(protected _router: Router) {}
+
+	public use(path: TPathParams, ...handlers: Array<TAnyHandler>) {
+		const func = this._router.use;
+		return this._use(func, path, handlers);
+	}
+
+	public get(path: TPathParams, ...handlers: Array<TAnyHandler>) {
+		const func = this._router.get;
+		return this._use(func, path, handlers);
+	}
+
+	public put(path: TPathParams, ...handlers: Array<TAnyHandler>) {
+		const func = this._router.put;
+		return this._use(func, path, handlers);
+	}
+
+	public post(path: TPathParams, ...handlers: Array<TAnyHandler>) {
+		const func = this._router.post;
+		return this._use(func, path, handlers);
+	}
+
+	public delete(path: TPathParams, ...handlers: Array<TAnyHandler>) {
+		const func = this._router.delete;
+		return this._use(func, path, handlers);
+	}
+
+	private _use(func: any, path: TPathParams, handlers: Array<any>) {
+		const toUse: Array<any> = [];
+
+		handlers.forEach(handler => {
+			let instance: any;
+			switch (true) {
+				case Routable.isRoutable(handler):
+					// instance = new handler();
+					// if (!instance._router) {
+					// 	throw new Error("Routable doesn't have router");
+					// }
+					toUse.push(handler._router);
+					break;
+
+				case Routable.isMiddleware(handler):
+					// instance = new handler();
+					// if (!instance.main) {
+					// 	throw new Error("Middleware doesn't have main method");
+					// }
+					toUse.push(handler.main);
+					break;
+
+				case Routable.isLooksLikeRoutable(handler):
+				case Routable.isNativeMiddleware(handler):
+					toUse.push(handler);
+					break;
+
+				default:
+					throw new Error(
+						"Provided handler doesn't match any existing type"
+					);
+					break;
+			}
+		});
+
+		func.apply(this._router, [path, ...toUse]);
+	}
 }
 
 // export abstract class Routable {

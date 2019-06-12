@@ -22,4 +22,6 @@ const SERVER_CONFIG: IServerConfig = {
 	SERVER_PORT,
 };
 
-bootstrap(ProjectApp, MONGO_CONFIG, SERVER_CONFIG);
+bootstrap(ProjectApp, MONGO_CONFIG, SERVER_CONFIG).then(() => {
+	console.log(`Listening on '${SERVER_HOSTNAME}:${SERVER_PORT}'`);
+});

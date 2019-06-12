@@ -1,6 +1,10 @@
-import { Schema, Document, Model as MModel, model } from "mongoose";
+import { Schema, Document, Model as MModel, model as mmodel } from "mongoose";
 
-import { GenericClassDecorator, Injector } from "./../../utils/injector";
+import {
+	GenericClassDecorator,
+	InjectionRule,
+	Injector,
+} from "./../../utils/injector";
 
 // export abstract class Model<T extends object> {
 // 	public get _definition() {
@@ -53,5 +57,90 @@ import { GenericClassDecorator, Injector } from "./../../utils/injector";
 // 	}
 // }
 
-export const Model = <T>(): GenericClassDecorator<T> =>
-	Injector.generateNewConstructor;
+export interface IModelOpts {
+	name: string;
+	definition: any;
+}
+
+export const Model = <IEntity, T = any>({
+	name,
+	definition,
+}: IModelOpts): GenericClassDecorator<T> => constructor => {
+	const injectionRule = (
+		modelRef: ModelRef<IEntity>
+	): InjectionRule => token => {
+		switch (token) {
+			case <any>ModelRef:
+				return modelRef as any;
+				break;
+
+			default:
+				break;
+		}
+	};
+
+	const newConstructor = function(...args: Array<any>): T {
+		if (!new.target) {
+			throw new Error("Instance have to be created with 'new' keyword");
+		}
+
+		const schema = new Schema<IEntity>(definition);
+		let model: MModel<IEntity & Document>;
+
+		try {
+			model = mmodel(name);
+		} catch (error) {
+			model = mmodel(name, schema);
+		}
+
+		const modelRef = new ModelRef(name, definition, schema, model);
+
+		const instance = Injector.resolve<T>(
+			constructor,
+			injectionRule(modelRef)
+		);
+
+		return instance;
+	};
+
+	newConstructor._isRoutable = true;
+
+	return newConstructor;
+};
+
+export class ModelRef<T> {
+	constructor(
+		protected name: string,
+		protected definition: any,
+		protected schema: Schema<T>,
+		protected model: MModel<T & Document>
+	) {}
+
+	public get create() {
+		return this.model.create.bind(this.model);
+	}
+	public get find() {
+		return this.model.find.bind(this.model);
+	}
+	public get findOne() {
+		return this.model.findOne.bind(this.model);
+	}
+	public get findById() {
+		return this.model.findById.bind(this.model);
+	}
+	public get findbyIdAndUpdate() {
+		return this.model.findByIdAndUpdate.bind(this.model);
+	}
+	public get findByIdAndRemove() {
+		return this.model.findByIdAndRemove.bind(this.model);
+	}
+	public get findByIdAndDelete() {
+		return this.model.findByIdAndDelete.bind(this.model);
+	}
+	public get countDocuments() {
+		return this.model.countDocuments.bind(this.model);
+	}
+	public get populate() {
+		return this.model.populate.bind(this.model);
+	}
+}

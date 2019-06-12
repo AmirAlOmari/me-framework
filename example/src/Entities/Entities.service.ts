@@ -18,25 +18,25 @@ export class EntitiesService {
 	// 	});
 	// }
 
-	// public async hi() {
-	// 	return Promise.all([
-	// 		this.entitiesModel
-	// 			.find({})
-	// 			.countDocuments()
-	// 			.exec(),
-	// 		this.entitiesResource.getHiString(),
-	// 	])
-	// 		.then(([count, hiString]) => {
-	// 			const answer = Array(count!)
-	// 				.fill(0)
-	// 				.map(() => hiString + "\n");
+	public async hi() {
+		return Promise.all([
+			this.entitiesModel.modelRef
+				.find({})
+				.countDocuments()
+				.exec(),
+			this.entitiesResource.getHiString(),
+		])
+			.then(([count, hiString]) => {
+				const answer = Array(count!)
+					.fill(0)
+					.map(() => hiString + "\n");
 
-	// 			return answer;
-	// 		})
-	// 		.catch(error => {
-	// 			throw {
-	// 				...error,
-	// 			};
-	// 		});
-	// }
+				return answer;
+			})
+			.catch(error => {
+				throw {
+					...error,
+				};
+			});
+	}
 }

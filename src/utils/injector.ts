@@ -2,9 +2,7 @@ export interface Type<T> {
 	new (...args: Array<any>): T;
 }
 
-export type GenericClassDecorator<T> = (
-	target: Type<T>
-) => (...args: Array<any>) => T;
+export type GenericClassDecorator<T> = (target: Type<T>) => any;
 
 export type InjectionRule = <T>(token: Type<T>) => T | void;
 
@@ -23,7 +21,7 @@ export const Injector = new (class {
 				: void null;
 
 			return injectionRuleResult
-				? injections
+				? injectionRuleResult
 				: Injector.resolve<any>(token);
 		});
 

@@ -1,4 +1,4 @@
-import { Model } from "../../..";
+import { Model, ModelRef } from "../../..";
 
 export interface IEntity {
 	key: "value";
@@ -12,9 +12,10 @@ const entityDefinition = {
 	i: { type: Number },
 };
 
-@Model()
+@Model<IEntity>({
+	name: "Entity",
+	definition: entityDefinition,
+})
 export class EntitiesModel {
-	constructor() {
-		// super("Entitiy", entityDefinition);
-	}
+	constructor(public modelRef: ModelRef<IEntity>) {}
 }

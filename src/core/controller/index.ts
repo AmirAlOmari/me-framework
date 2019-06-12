@@ -12,5 +12,5 @@ import { GenericClassDecorator, Injector } from "./../../utils/injector";
 // 	}
 // }
 
-export const Controller = <T>(): GenericClassDecorator<T> =>
+export const Controller = <T = any>(): GenericClassDecorator<T> =>
 	Injector.generateNewConstructor;
