@@ -1,0 +1,21 @@
+# Example repo
+example
+
+# Source
+src
+
+# TypeScript configuration files
+tsconfig.json
+
+# TSLint configuration files
+tslint.json
+
+# Dev tools configuration
+.editorconfig
+.prettierrc.json
+
+# Some data
+data/**
+
+# Editors configurations
+.vscode

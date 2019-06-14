@@ -1,25 +1,26 @@
-import { Service } from "../../../src";
+import { Service } from "../../..";
 
 import { EntitiesResource } from "./Entities.resource";
 import { EntitiesModel } from "./Entities.model";
 
-export class EntitiesService extends Service {
+@Service()
+export class EntitiesService {
 	constructor(
-		public entitiesResource = new EntitiesResource(),
-		public entitiesModel = new EntitiesModel()
+		public entitiesResource: EntitiesResource,
+		public entitiesModel: EntitiesModel
 	) {
-		super();
+		// super();
 	}
 
-	public async create(value: string) {
-		return this.entitiesModel.create({ key: value }).then(entity => {
-			return entity.toObject();
-		});
-	}
+	// public async create(value: string) {
+	// 	return this.entitiesModel.create({ key: value }).then(entity => {
+	// 		return entity.toObject();
+	// 	});
+	// }
 
 	public async hi() {
 		return Promise.all([
-			this.entitiesModel
+			this.entitiesModel.modelRef
 				.find({})
 				.countDocuments()
 				.exec(),

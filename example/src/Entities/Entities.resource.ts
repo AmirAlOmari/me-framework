@@ -1,10 +1,11 @@
-import { Resource } from "../../../src";
+import { Resource } from "../../..";
 
 import { EntitiesModel } from "./Entities.model";
 
-export class EntitiesResource extends Resource {
-	constructor(public entitiesModel = new EntitiesModel()) {
-		super();
+@Resource()
+export class EntitiesResource {
+	constructor(public entitiesModel: EntitiesModel) {
+		// super();
 	}
 
 	public async getHiString() {
