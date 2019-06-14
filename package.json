@@ -1,12 +1,11 @@
 {
-	"name": "me",
+	"name": "me-framework",
 	"version": "0.0.1",
 	"description": "",
 	"types": "types/index.d.ts",
 	"main": "lib/index.js",
 	"scripts": {
-		"start": "node ./lib/index.js",
-		"start:dev": "node --inspect=9222 -r ts-node/register ./src/index.ts",
+		"postinstall": "npm run build",
 		"build": "tsc -p .",
 		"prettier": "prettier --write \"./**/*.{js,ts,json}\" \"!./**/lib/**\"",
 		"tslint": "tslint --fix --force -p .",
