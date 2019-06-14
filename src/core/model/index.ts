@@ -62,13 +62,11 @@ export interface IModelOpts {
 	schema: any;
 }
 
-export const Model = <IEntity, T = any>({
+export const Model = <T = any>({
 	name,
 	schema,
 }: IModelOpts): GenericClassDecorator<T> => constructor => {
-	const injectionRule = (
-		modelRef: ModelRef<IEntity>
-	): InjectionRule => token => {
+	const injectionRule = (modelRef: ModelRef<any>): InjectionRule => token => {
 		switch (token) {
 			case <any>ModelRef:
 				return modelRef as any;
@@ -84,7 +82,7 @@ export const Model = <IEntity, T = any>({
 			throw new Error("Instance have to be created with 'new' keyword");
 		}
 
-		let model: MModel<IEntity & Document>;
+		let model: MModel<any & Document>;
 
 		try {
 			model = mmodel(name);
