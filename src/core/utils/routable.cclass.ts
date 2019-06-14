@@ -15,7 +15,11 @@ export interface RoutableLike {
 	};
 }
 
-export type TAnyHandler = IRequestHandler | IErrorRequestHandler | RoutableLike;
+export type TAnyHandler =
+	| IRequestHandler
+	| IErrorRequestHandler
+	| RoutableLike
+	| ((...args: Array<any>) => any);
 
 export type TMiddlewareFunction =
 	| ((...handlers: Array<TAnyHandler>) => any)
