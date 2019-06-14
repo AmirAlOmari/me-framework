@@ -59,12 +59,12 @@ import {
 
 export interface IModelOpts {
 	name: string;
-	definition: any;
+	schema: any;
 }
 
 export const Model = <IEntity, T = any>({
 	name,
-	definition,
+	schema,
 }: IModelOpts): GenericClassDecorator<T> => constructor => {
 	const injectionRule = (
 		modelRef: ModelRef<IEntity>
@@ -84,7 +84,6 @@ export const Model = <IEntity, T = any>({
 			throw new Error("Instance have to be created with 'new' keyword");
 		}
 
-		const schema = new Schema<IEntity>(definition);
 		let model: MModel<IEntity & Document>;
 
 		try {
@@ -93,7 +92,7 @@ export const Model = <IEntity, T = any>({
 			model = mmodel(name, schema);
 		}
 
-		const modelRef = new ModelRef(name, definition, schema, model);
+		const modelRef = new ModelRef(name, schema, model);
 
 		const instance = Injector.resolve<T>(
 			constructor,
@@ -111,7 +110,6 @@ export const Model = <IEntity, T = any>({
 export class ModelRef<T> {
 	constructor(
 		protected name: string,
-		protected definition: any,
 		protected schema: Schema<T>,
 		protected model: MModel<T & Document>
 	) {}
@@ -144,3 +142,5 @@ export class ModelRef<T> {
 		return this.model.populate.bind(this.model);
 	}
 }
+
+export { Schema };
