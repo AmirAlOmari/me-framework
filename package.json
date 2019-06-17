@@ -1,6 +1,6 @@
 {
 	"name": "me-framework",
-	"version": "0.0.1",
+	"version": "0.0.1-beta",
 	"description": "",
 	"types": "types/index.d.ts",
 	"main": "lib/index.js",

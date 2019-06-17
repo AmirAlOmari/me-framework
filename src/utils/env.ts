@@ -2,7 +2,7 @@ import { existsSync } from "fs";
 import { resolve } from "path";
 import { config } from "dotenv";
 
-export const loadEnv = (
+export const env = (
 	envFilePaths: Array<string>,
 	basePath: string = resolve(__dirname, "./../../../../")
 ) => {
